@@ -2,6 +2,8 @@ package com.g2.musique;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,9 +37,11 @@ public class QuestionActivity extends AppCompatActivity {
 
                 if (radioButtonSelected.getText().toString().equals("The Weeknd")) {
                     responseTextView.setText("Vrai");
+                    responseTextView.setTextColor(Color.GREEN);
                 }
                 else {
                         responseTextView.setText("Faux");
+                        responseTextView.setTextColor(Color.RED);
                 }
 
             }
