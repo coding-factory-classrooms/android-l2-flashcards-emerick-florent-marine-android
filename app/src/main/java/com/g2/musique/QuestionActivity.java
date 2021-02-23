@@ -28,14 +28,18 @@ public class QuestionActivity extends AppCompatActivity {
             mediaPlayer.pause();
             button.setText(getString(R.string.play_music_btn));
         }
-        else if(!mediaPlayer.isLooping())
-        {
-            button.setText(getString(R.string.play_music_btn));
-        }
         else
         {
             mediaPlayer.start();
             button.setText(getString(R.string.pause_music_btn));
         }
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Button button = findViewById(R.id.playButton);
+                button.setText(getString(R.string.play_music_btn));
+            }
+        });
     }
 }
