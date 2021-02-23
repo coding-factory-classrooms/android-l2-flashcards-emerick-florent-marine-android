@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        this.mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.the_week_end);
+        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.the_week_end);
 
         Button validateButton = findViewById(R.id.validatebutton);
         validateButton.setOnClickListener(new View.OnClickListener() {
@@ -35,16 +36,26 @@ public class QuestionActivity extends AppCompatActivity {
                 radioButtonSelected = findViewById(radioGroup.getCheckedRadioButtonId());
                 TextView responseTextView = findViewById(R.id.responseTextView);
 
+                if (radioButtonSelected == null) {
+                    Toast.makeText(QuestionActivity.this,
+                            "Choisir une réponse !",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (radioButtonSelected.getText().toString().equals("The Weeknd")) {
                     responseTextView.setText("Vrai");
                     responseTextView.setTextColor(Color.GREEN);
-                }
-                else {
-                        responseTextView.setText("Faux");
-                        responseTextView.setTextColor(Color.RED);
+                    Button validateButton = findViewById(R.id.validatebutton);
+                    validateButton.setText("Question suivante");
+                    return;
+                } else {
+                    responseTextView.setText("Faux la bonne réponse était The Weeknd");
+                    responseTextView.setTextColor(Color.RED);
+                    return;
                 }
             }
         });
+
     }
 
     public void playSound(View view) {
