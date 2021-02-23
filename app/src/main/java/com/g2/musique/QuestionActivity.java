@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -33,6 +34,12 @@ public class QuestionActivity extends AppCompatActivity {
                 radioButtonSelected = findViewById(radioGroup.getCheckedRadioButtonId());
                 TextView responseTextView = findViewById(R.id.responseTextView);
 
+                if (radioButtonSelected == null) {
+                    Toast.makeText(QuestionActivity.this,
+                            "Choisir une réponse !",
+                            Toast.LENGTH_SHORT).show();
+                    return ;
+                }
                 if (radioButtonSelected.getText().toString().equals("The Weeknd")) {
                     responseTextView.setText("Vrai");
                 }
