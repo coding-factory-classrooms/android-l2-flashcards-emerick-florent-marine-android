@@ -43,7 +43,6 @@ public class QuestionActivity extends AppCompatActivity {
                         responseTextView.setText("Faux");
                         responseTextView.setTextColor(Color.RED);
                 }
-
             }
         });
     }
