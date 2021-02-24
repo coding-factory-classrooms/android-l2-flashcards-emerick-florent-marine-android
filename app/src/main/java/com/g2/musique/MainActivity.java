@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("questions",setQuestion());
                 startActivity(intent);
             }
         });
@@ -36,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setQuestion(){
+    public ArrayList<Question> setQuestion(){
         ArrayList<Question> questionsList = new ArrayList<Question>();
         questionsList.add(new Question(R.raw.the_week_end,"The Week end", new String[] {"Bad Boy","test2","test3"}));
+        return questionsList;
     }
 }

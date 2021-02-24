@@ -2,6 +2,7 @@ package com.g2.musique;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -14,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class QuestionActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
@@ -22,6 +25,12 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
+        Intent srcIntent = getIntent();
+
+        ArrayList<Question> questionsList = srcIntent.getParcelableArrayListExtra("questions");
+        Log.i("test Array", "list :" + questionsList.get(0).getAllAnswer());
+
 
         this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.the_week_end);
 
