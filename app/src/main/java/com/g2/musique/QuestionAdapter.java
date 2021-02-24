@@ -1,6 +1,9 @@
 package com.g2.musique;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder>
+                                    implements View.OnClickListener {
 
     private ArrayList<Question> questionList;
 
@@ -46,11 +50,30 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         }
         holder.answer.setText(answer);
         holder.level.setText(question.getlevel());
+        holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(question);
     }
 
     @Override
     public int getItemCount() {
         return questionList.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.itemLayout:
+                Question question = (Question) view.getTag();
+                Context context = view.getContext();
+                Intent intent = new Intent(context, QuestionActivity.class);
+                Log.i("adapter", String.valueOf(question));
+                ArrayList<Question> questions = new ArrayList<>();
+                questions.add(question);
+                intent.putExtra("questions", questions);
+                intent.putExtra("numberQuestion", 0);
+                context.startActivity(intent);
+                break;
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
