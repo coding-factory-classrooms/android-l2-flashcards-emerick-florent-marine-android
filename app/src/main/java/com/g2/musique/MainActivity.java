@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      //  getActionBar().setTitle("Spotify blind test");
 
         Button startButton = findViewById(R.id.startMusicButton);
         startButton.setOnClickListener( new View.OnClickListener(){
