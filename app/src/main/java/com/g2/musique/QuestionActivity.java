@@ -78,7 +78,7 @@ public class QuestionActivity extends AppCompatActivity {
                     score++;
 
                 } else {
-                    responseTextView.setText("Faux la bonne réponse était The Weeknd");
+                    responseTextView.setText("Faux la bonne réponse était" + currentQuestion.getRightAnswer());
                     responseTextView.setTextColor(Color.RED);
                     validateButton.setText("Question suivante");
                 }
