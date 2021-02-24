@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Question implements Parcelable {
 
@@ -17,9 +19,24 @@ public class Question implements Parcelable {
         this.badAnswer = badAnswer;
     }
 
-    public void getAllAnswer()
+    public int getMusiqueId() {
+        return musiqueId;
+    }
+
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public String[] getBadAnswer() {
+        return badAnswer;
+    }
+
+    public ArrayList<String> getAllAnswer()
     {
-        
+        ArrayList<String> allAnswer = new ArrayList<String>(Arrays.asList(this.badAnswer));
+        allAnswer.add(this.rightAnswer);
+        Collections.shuffle(allAnswer);
+        return allAnswer;
     }
 
     protected Question(Parcel in) {

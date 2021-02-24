@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("questions",setQuestion());
                 startActivity(intent);
             }
         });
@@ -31,13 +32,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                startActivity( intent);
+                startActivity(intent);
             }
         });
     }
 
-    public void setQuestion(){
+    public ArrayList<Question> setQuestion(){
         ArrayList<Question> questionsList = new ArrayList<Question>();
-        questionsList.add(new Question(R.raw.the_week_end,"The Week end", new String[] {"Bad Boy","test2","test3"}));
+        questionsList.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"Bad Boy","test2","test3"}));
+        questionsList.add(new Question(R.raw.the_week_end,"question 2", new String[] {"question 2","question 2","question 2"}));
+        return questionsList;
     }
 }
