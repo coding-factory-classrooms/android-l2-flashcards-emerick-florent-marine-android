@@ -44,23 +44,23 @@ public class QuestionActivity extends AppCompatActivity {
 
         Intent srcIntent = getIntent();
         questionsList = srcIntent.getParcelableArrayListExtra("questions");
-        numberQuestion = srcIntent.getIntExtra(EXTRA_NUMBER_QUESTION,0);
-        score = srcIntent.getIntExtra(EXTRA_SCORE_QUESTION,0);
-        timeMediaPlayer = srcIntent.getIntExtra(TIME_MEDIA_PLAYER,10000);
+        numberQuestion = srcIntent.getIntExtra(EXTRA_NUMBER_QUESTION, 0);
+        score = srcIntent.getIntExtra(EXTRA_SCORE_QUESTION, 0);
+        timeMediaPlayer = srcIntent.getIntExtra(TIME_MEDIA_PLAYER, 10000);
         level = srcIntent.getStringExtra(LEVEL);
 
         final Question currentQuestion = questionsList.get(numberQuestion);
         ArrayList<String> allAnswer = currentQuestion.getAllAnswer();
 
         RadioGroup radioGroup = findViewById(R.id.radioGroup1);
-        for (int i = 0; i < allAnswer.size(); ++i){
+        for (int i = 0; i < allAnswer.size(); ++i) {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(allAnswer.get(i));
             radioGroup.addView(radioButton);
         }
 
-        setTitle("Spotify Blind Test  Question "+String.valueOf(numberQuestion+1)+"/"+questionsList.size());
-        this.mediaPlayer = MediaPlayer.create(getApplicationContext(),currentQuestion.getMusiqueId());
+        setTitle("Spotify Blind Test  Question " + String.valueOf(numberQuestion + 1) + "/" + questionsList.size());
+        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), currentQuestion.getMusiqueId());
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
         Button validateButton = findViewById(R.id.validatebutton);
         validateButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class QuestionActivity extends AppCompatActivity {
                     validateButton.setText("Question suivante");
                     score++;
                 } else {
-                    responseTextView.setText("Faux la bonne réponse était "+ currentQuestion.getRightAnswer());
+                    responseTextView.setText("Faux la bonne réponse était " + currentQuestion.getRightAnswer());
                     responseTextView.setTextColor(Color.RED);
                     validateButton.setText("Question suivante");
                 }
@@ -100,23 +100,20 @@ public class QuestionActivity extends AppCompatActivity {
         final Button button = (Button) view;
 
         Intent srcIntent = getIntent();
-        timeMediaPlayer = srcIntent.getIntExtra(TIME_MEDIA_PLAYER,10000);
+        timeMediaPlayer = srcIntent.getIntExtra(TIME_MEDIA_PLAYER, 10000);
 
-        if (mediaPlayer.isPlaying())
-        {
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             button.setText(getString(R.string.play_music_btn));
-        }
-        else
-        {
+        } else {
             mediaPlayer.start();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mediaPlayer.seekTo(mediaPlayer.getDuration());
-                    }
-                }, timeMediaPlayer);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mediaPlayer.seekTo(mediaPlayer.getDuration());
+                }
+            }, timeMediaPlayer);
             button.setText(getString(R.string.pause_music_btn));
         }
 
@@ -128,44 +125,44 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    public void logicEndQuizz(){
+    public void logicEndQuizz() {
         numberQuestion++;
-        if (numberQuestion >= questionsList.size()){
-                    Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-                intent.putExtra("questions", questionsList);
-                intent.putExtra(EXTRA_SCORE_QUESTION, score);
-                intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-                intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-                intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-                intent.putExtra(LEVEL, level);
-                startActivity(intent);
-                          mediaPlayer.stop();
-                    finish();
-            startActivity(intent);
-                  }
-            }, 2000);
-        }
-        }
-        else{
+        if (numberQuestion >= questionsList.size()) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-            Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
-            intent.putExtra("questions", questionsList);
-            intent.putExtra(EXTRA_SCORE_QUESTION, score);
-            intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-            intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-            intent.putExtra(LEVEL, level);
-             mediaPlayer.stop();
+                    Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+                    intent.putExtra("questions", questionsList);
+                    intent.putExtra(EXTRA_SCORE_QUESTION, score);
+                    intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+                    intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+                    intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+                    intent.putExtra(LEVEL, level);
+                    startActivity(intent);
+                    mediaPlayer.stop();
                     finish();
-            startActivity(intent);
-                  }
+                    startActivity(intent);
+                }
             }, 2000);
         }
+    else
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
+                intent.putExtra("questions", questionsList);
+                intent.putExtra(EXTRA_SCORE_QUESTION, score);
+                intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+                intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+                intent.putExtra(LEVEL, level);
+                mediaPlayer.stop();
+                finish();
+                startActivity(intent);
+            }
+        }, 2000);
     }
+}
 }
