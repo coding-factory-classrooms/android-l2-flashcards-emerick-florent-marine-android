@@ -12,6 +12,7 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".QuestionActivity" />
+        <activity android:name=".QuestionListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
