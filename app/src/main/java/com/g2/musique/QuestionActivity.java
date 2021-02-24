@@ -3,7 +3,6 @@ package com.g2.musique;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -20,11 +19,13 @@ import java.util.ArrayList;
 public class QuestionActivity extends AppCompatActivity {
 
     public static final String EXTRA_NUMBER_QUESTION = "numberQuestion";
+    public static final String EXTRA_SCORE_QUESTION = "numberScore";
     public static final String TAG = "Question Activity";
     private MediaPlayer mediaPlayer;
 
     private ArrayList<Question> questionsList;
     private int numberQuestion;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         questionsList = srcIntent.getParcelableArrayListExtra("questions");
         numberQuestion = srcIntent.getIntExtra(EXTRA_NUMBER_QUESTION,0);
+        score = srcIntent.getIntExtra(EXTRA_SCORE_QUESTION,0);
 
         final Question currentQuestion = questionsList.get(numberQuestion);
         ArrayList<String> allAnswer = currentQuestion.getAllAnswer();
@@ -70,6 +72,7 @@ public class QuestionActivity extends AppCompatActivity {
                     responseTextView.setText("Vrai");
                     responseTextView.setTextColor(Color.GREEN);
                     validateButton.setText("Question suivante");
+                    score++;
 
                 } else {
                     responseTextView.setText("Faux la bonne réponse était The Weeknd");
@@ -109,9 +112,9 @@ public class QuestionActivity extends AppCompatActivity {
         Log.i("test Array", "entrée :" + numberQuestion);
         numberQuestion++;
         if (numberQuestion >= questionsList.size()){
-            Log.i("test Array", "avant result :" + numberQuestion);
-            Intent intent = new Intent(QuestionActivity.this, AboutActivity.class);
+            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
             intent.putExtra("questions", questionsList);
+            intent.putExtra(EXTRA_SCORE_QUESTION, score);
             intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
             startActivity(intent);
         }
@@ -119,10 +122,11 @@ public class QuestionActivity extends AppCompatActivity {
             //
             Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
             intent.putExtra("questions", questionsList);
-            Log.i("test Array", "avant envoie :" + numberQuestion);
+            intent.putExtra(EXTRA_SCORE_QUESTION, score);
             intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
             startActivity(intent);
         }
+        mediaPlayer.stop();
         finish();
     }
 }
