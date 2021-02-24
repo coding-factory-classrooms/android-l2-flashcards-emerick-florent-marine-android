@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -111,24 +113,34 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void logicEndQuizz(){
-        Log.i("test Array", "entrée :" + numberQuestion);
         numberQuestion++;
         if (numberQuestion >= questionsList.size()){
-            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-            intent.putExtra("questions", questionsList);
-            intent.putExtra(EXTRA_SCORE_QUESTION, score);
-            intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-            startActivity(intent);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+                    intent.putExtra("questions", questionsList);
+                    intent.putExtra(EXTRA_SCORE_QUESTION, score);
+                    intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+                    startActivity(intent);
+                }
+            }, 2000);
         }
         else{
-            //
-            Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
-            intent.putExtra("questions", questionsList);
-            intent.putExtra(EXTRA_SCORE_QUESTION, score);
-            intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-            startActivity(intent);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
+                    intent.putExtra("questions", questionsList);
+                    intent.putExtra(EXTRA_SCORE_QUESTION, score);
+                    intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+                    startActivity(intent);
+                    mediaPlayer.stop();
+                    finish();
+                }
+            }, 2000);
         }
-        mediaPlayer.stop();
-        finish();
     }
 }
