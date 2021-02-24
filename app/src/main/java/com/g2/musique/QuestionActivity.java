@@ -32,6 +32,7 @@ public class QuestionActivity extends AppCompatActivity {
                 RadioGroup radioGroup;
                 RadioButton radioButtonSelected;
 
+                Button validateButton = findViewById(R.id.validatebutton);
                 radioGroup = findViewById(R.id.radioGroup1);
                 radioButtonSelected = findViewById(radioGroup.getCheckedRadioButtonId());
                 TextView responseTextView = findViewById(R.id.responseTextView);
@@ -45,12 +46,12 @@ public class QuestionActivity extends AppCompatActivity {
                 if (radioButtonSelected.getText().toString().equals("The Weeknd")) {
                     responseTextView.setText("Vrai");
                     responseTextView.setTextColor(Color.GREEN);
-                    Button validateButton = findViewById(R.id.validatebutton);
                     validateButton.setText("Question suivante");
                     return;
                 } else {
                     responseTextView.setText("Faux la bonne réponse était The Weeknd");
                     responseTextView.setTextColor(Color.RED);
+                    validateButton.setText("Question suivante");
                     return;
                 }
             }
