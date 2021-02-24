@@ -46,8 +46,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
+        
     }
 
     public ArrayList<Question> setQuestion(String type, int number){
