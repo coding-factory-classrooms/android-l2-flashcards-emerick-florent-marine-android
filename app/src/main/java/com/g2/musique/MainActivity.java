@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -32,5 +34,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( intent);
             }
         });
+    }
+
+    public void setQuestion(){
+        ArrayList<Question> questionsList = new ArrayList<Question>();
+        questionsList.add(new Question(R.raw.the_week_end,"The Week end", new String[] {"Bad Boy","test2","test3"}));
     }
 }
