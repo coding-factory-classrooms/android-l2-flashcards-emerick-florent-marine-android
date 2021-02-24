@@ -20,6 +20,10 @@ public class SingleChoiceDialog extends DialogFragment {
 
     SingleChoiceListener listener;
 
+    /**
+     *
+     * Generate context of dialog
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -31,6 +35,10 @@ public class SingleChoiceDialog extends DialogFragment {
         }
     }
 
+    /**
+     *
+     * @return choice dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

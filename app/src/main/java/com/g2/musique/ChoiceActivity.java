@@ -15,6 +15,10 @@ public class ChoiceActivity extends AppCompatActivity {
     public static final String LEVEL = "level";
     private String level;
 
+    /**
+     *
+     * generate the activity_choice
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,10 @@ public class ChoiceActivity extends AppCompatActivity {
 
         Button classiqueButton = findViewById(R.id.classiqueButton);
         classiqueButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * generate activity_question and send intent data of standard question
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
@@ -39,6 +47,10 @@ public class ChoiceActivity extends AppCompatActivity {
 
         Button mangaButton = findViewById(R.id.mangaButton);
         mangaButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * generate activity_question and send intent data of manga question
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
@@ -51,6 +63,10 @@ public class ChoiceActivity extends AppCompatActivity {
 
         Button discoButton = findViewById(R.id.discoButton);
         discoButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * generate activity_question and send intent data of disco question
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
@@ -62,10 +78,21 @@ public class ChoiceActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param type is equal to the type of music choose
+     * @param number is equal of the numbers of desired question
+     * @return Arraylist of questions and response
+     */
     public ArrayList<Question> setQuestion(String type, int number){
         return factoryQuestion.setQuestion(type,number);
     }
 
+    /**
+     *
+     * @param level is the level of difficulty
+     * @return time in ms for mediaPlayer
+     */
     public int setLevelSec(String level){
         switch(level) {
             case "facile":

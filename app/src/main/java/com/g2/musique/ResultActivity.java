@@ -18,6 +18,10 @@ public class ResultActivity extends AppCompatActivity {
     private ArrayList<Question> questionsList;
     private String level;
 
+    /**
+     *
+     * Generate the result and statistics of the blind test
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,10 @@ public class ResultActivity extends AppCompatActivity {
         Button homeButton = findViewById(R.id.homeButton);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * Generate the return to home
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultActivity.this,MainActivity.class);

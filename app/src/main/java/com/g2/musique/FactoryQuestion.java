@@ -12,6 +12,9 @@ public class FactoryQuestion {
     public static final String DISCO = "disco";
     private Map<String, ArrayList<Question>> questionsMap = new HashMap<>();
 
+    /**
+     * Create Database of questions for the app
+     */
     public void createDataBase(){
 
         ArrayList<Question> questionsListBasic = new ArrayList<Question>();
@@ -67,6 +70,12 @@ public class FactoryQuestion {
 
     }
 
+    /**
+     *
+     * @param type is equal to the type of music choose
+     * @param numberOfQuestion is equal of the numbers of desired question
+     * @return Arraylist of questions and response
+     */
     public ArrayList<Question> setQuestion(String type, int numberOfQuestion){
         if (questionsMap.isEmpty()){
             createDataBase();
@@ -86,6 +95,11 @@ public class FactoryQuestion {
         return questionsReturn;
     }
 
+    /**
+     *
+     * @param level is the choose of the difficulty by the user
+     * @return Arraylist of all the questions
+     */
     public ArrayList<Question> setAllQuestion(String level){
         if (questionsMap.isEmpty()) {
             createDataBase();

@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity
     private FactoryQuestion factoryQuestion = new FactoryQuestion();
     private String level = "canceled";
 
+    /**
+     *
+      * Start of the app
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,10 @@ public class MainActivity extends AppCompatActivity
 
         Button startButton = findViewById(R.id.startMusicButton);
         startButton.setOnClickListener( new View.OnClickListener(){
+            /**
+             *
+             * Generation of the game and go to choose the difficulty
+             */
             @Override
             public void onClick(View v){
                 DialogFragment singleChoiceDialog = new SingleChoiceDialog();
@@ -39,6 +47,10 @@ public class MainActivity extends AppCompatActivity
 
         Button listOfQuestionsButton = findViewById(R.id.ListOfQuestionsButton);
         listOfQuestionsButton.setOnClickListener( new View.OnClickListener(){
+            /**
+             *
+             * Generate the activity_question_list
+             */
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
@@ -49,6 +61,10 @@ public class MainActivity extends AppCompatActivity
 
         Button aboutButton = findViewById(R.id.aboutButton);
         aboutButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * Generate the activity_about
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AboutActivity.class);
@@ -57,11 +73,21 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /**
+     *
+     * @param type is equal to the type of music choose
+     * @param number is equal of the numbers of desired question
+     * @return Arraylist of questions and response
+     */
     public ArrayList<Question> setQuestion(String type, int number){
         return factoryQuestion.setQuestion(type,number);
-
     }
 
+    /**
+     *
+     * @param list of difficulties available
+     * @param position of the choices
+     */
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
         this.level = list[position];
@@ -72,6 +98,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * canceled the choice of level
+     */
     @Override
     public void onNegativeButtonClicked() {
         this.level = "canceled";

@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 public class AboutActivity extends AppCompatActivity {
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,11 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @return version of app
+     * @throws PackageManager.NameNotFoundException
+     */
     public String getAppVersion() throws PackageManager.NameNotFoundException {
         PackageManager manager = getApplicationContext().getPackageManager();
         PackageInfo info = manager.getPackageInfo(

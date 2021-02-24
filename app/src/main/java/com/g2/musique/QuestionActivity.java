@@ -33,6 +33,10 @@ public class QuestionActivity extends AppCompatActivity {
     private String level;
     private boolean choice;
 
+    /**
+     *
+     * Generate activity_question
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,10 @@ public class QuestionActivity extends AppCompatActivity {
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
         Button validateButton = findViewById(R.id.validateButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * Validate the choice of response
+             */
             @Override
             public void onClick(View view) {
                 RadioGroup radioGroup;
@@ -94,15 +102,23 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * Generate next page of Question
+             */
             @Override
             public void onClick(View view) {
                 if(choice){
-                    logicEndQuizz();   
+                    logicEndQuizz();
                 }
             }
         });
     }
 
+    /**
+     *
+     * Play the sound of BlindTest
+     */
     public void playSound(View view) {
 
         final Button button = (Button) view;
@@ -117,6 +133,9 @@ public class QuestionActivity extends AppCompatActivity {
             mediaPlayer.start();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
+                /**
+                 * captured position on music time
+                 */
                 @Override
                 public void run() {
                     mediaPlayer.seekTo(mediaPlayer.getDuration());
@@ -125,12 +144,20 @@ public class QuestionActivity extends AppCompatActivity {
             button.setText(getString(R.string.pause_music_btn));
         }
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            /**
+             * Restart the music from the start
+             * @param mp new MediaPlayer
+             */
             @Override
             public void onCompletion(MediaPlayer mp) {
                 button.setText(getString(R.string.play_music_btn));
             }
         });
     }
+
+    /**
+     * Is use for decide of the next page after click on "Next Page"
+     */
     public void logicEndQuizz() {
         numberQuestion++;
         if (numberQuestion >= questionsList.size()) {

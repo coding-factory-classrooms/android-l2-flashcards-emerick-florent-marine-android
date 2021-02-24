@@ -14,6 +14,13 @@ public class Question implements Parcelable {
     private String[] badAnswer;
     private String genre;
 
+    /**
+     *
+     * @param musiqueId is the idName
+     * @param rightAnswer is the only right answer
+     * @param badAnswer is an array of bad Answer
+     * @param genre is the genre of musics
+     */
     public Question(int musiqueId, String rightAnswer, String[] badAnswer, String genre) {
         this.musiqueId = musiqueId;
         this.rightAnswer = rightAnswer;
@@ -21,6 +28,10 @@ public class Question implements Parcelable {
         this.genre = genre;
     }
 
+    /**
+     *
+     * @return question to String
+     */
     @Override
     public String toString() {
         return "Question{" +
@@ -31,22 +42,42 @@ public class Question implements Parcelable {
                 '}';
     }
 
+    /**
+     *
+     * @return genre
+     */
     public String getGenre() {
         return genre;
     }
 
+    /**
+     *
+     * @return music id
+     */
     public int getMusiqueId() {
         return musiqueId;
     }
 
+    /**
+     *
+     * @return right answer
+     */
     public String getRightAnswer() {
         return rightAnswer;
     }
 
+    /**
+     *
+     * @return array of bad answers
+     */
     public String[] getBadAnswer() {
         return badAnswer;
     }
 
+    /**
+     *
+     * @return ArrayList of all answers
+     */
     public ArrayList<String> getAllAnswer()
     {
         ArrayList<String> allAnswer = new ArrayList<String>(Arrays.asList(this.badAnswer));
