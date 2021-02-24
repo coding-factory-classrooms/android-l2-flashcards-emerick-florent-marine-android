@@ -25,6 +25,7 @@
         android:layout_marginBottom="32dp"
         android:text="VALIDER LA RÉPONSE"
         android:textColor="#49BD4E"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -37,6 +38,7 @@
         android:onClick="playSound"
         android:text="@string/play_music_btn"
         android:textColor="#49C14E"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/QuestiontextView" />
@@ -56,7 +58,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="80dp"
-            android:text="The Weeknd" />
+            android:text="The Weeknd"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/radioButtonTwo"
@@ -65,7 +68,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="32dp"
-            android:text="ColdPlay" />
+            android:text="ColdPlay"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/radioButtonThree"
@@ -74,7 +78,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="32dp"
-            android:text="Imagine Dragons" />
+            android:text="Imagine Dragons"
+            android:textSize="14sp" />
     </RadioGroup>
 
     <TextView

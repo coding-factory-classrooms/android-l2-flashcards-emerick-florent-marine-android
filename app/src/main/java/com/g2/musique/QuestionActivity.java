@@ -44,7 +44,7 @@ public class QuestionActivity extends AppCompatActivity {
                     return;
                 }
                 if (radioButtonSelected.getText().toString().equals("The Weeknd")) {
-                    responseTextView.setText("Vrai");
+                    responseTextView.setText("Vrai la bonne réponse était The weeknd");
                     responseTextView.setTextColor(Color.GREEN);
                     validateButton.setText("Question suivante");
                     return;
