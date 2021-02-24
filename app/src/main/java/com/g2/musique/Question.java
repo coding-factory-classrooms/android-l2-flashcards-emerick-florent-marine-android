@@ -15,12 +15,12 @@ public class Question implements Parcelable {
     private String level;
     private String genre;
 
-    public Question(int musiqueId, String rightAnswer, String[] badAnswer, String level, String genre) {
+    public Question(int musiqueId, String rightAnswer, String[] badAnswer, String genre, String level) {
         this.musiqueId = musiqueId;
         this.rightAnswer = rightAnswer;
         this.badAnswer = badAnswer;
-        this.level = level;
         this.genre = genre;
+        this.level = level;
     }
 
     @Override
@@ -66,6 +66,7 @@ public class Question implements Parcelable {
         musiqueId = in.readInt();
         rightAnswer = in.readString();
         badAnswer = in.createStringArray();
+        genre = in.readString();
         level = in.readString();
     }
 
@@ -74,6 +75,7 @@ public class Question implements Parcelable {
         dest.writeInt(musiqueId);
         dest.writeString(rightAnswer);
         dest.writeStringArray(badAnswer);
+        dest.writeString(genre);
         dest.writeString(level);
     }
 
@@ -93,4 +95,5 @@ public class Question implements Parcelable {
             return new Question[size];
         }
     };
+
 }
