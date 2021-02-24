@@ -68,8 +68,10 @@ public class QuestionActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
                     responseTextView.setText("Vrai");
+
                     responseTextView.setTextColor(Color.GREEN);
                     validateButton.setText("Question suivante");
                     score++;
