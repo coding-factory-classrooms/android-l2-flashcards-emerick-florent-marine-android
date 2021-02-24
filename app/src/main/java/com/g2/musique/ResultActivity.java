@@ -14,7 +14,9 @@ import java.util.ArrayList;
 public class ResultActivity extends AppCompatActivity {
 
     public static final String EXTRA_SCORE_QUESTION = "numberScore";
+    public static final String LEVEL = "level";
     private ArrayList<Question> questionsList;
+    private String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +26,18 @@ public class ResultActivity extends AppCompatActivity {
         Intent srcIntent = getIntent();
         questionsList = srcIntent.getParcelableArrayListExtra("questions");
         int score = srcIntent.getIntExtra(EXTRA_SCORE_QUESTION,0);
+        level = srcIntent.getStringExtra(LEVEL);
 
         float percentage = (score * 100) / questionsList.size();
 
-        Log.i("test", "onCreate: "+ percentage);
-
         TextView textScore = findViewById(R.id.realizedTextView3);
-
+        TextView textLevel = findViewById(R.id.levelTextView);
+        TextView textnbrAnswer = findViewById(R.id.nbrTextView);
 
         textScore.setText(percentage + "%");
+        Log.i("test", "onResult: "+ level);
+        textLevel.setText(level);
+        textnbrAnswer.setText(score + "/" + questionsList.size());
 
         Button homeButton = findViewById(R.id.homeButton);
 

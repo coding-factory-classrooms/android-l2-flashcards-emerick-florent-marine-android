@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 public class ChoiceActivity extends AppCompatActivity {
     private FactoryQuestion factoryQuestion = new FactoryQuestion();
+    public static final String LEVEL = "level";
     private String level;
 
     @Override
@@ -20,14 +22,17 @@ public class ChoiceActivity extends AppCompatActivity {
 
         Intent srcIntent = getIntent();
         this.level = srcIntent.getStringExtra("level");
-        View view = new View();
+        Log.i("test", "onCreate: " + level);
+        View view = new View(ChoiceActivity.this);
 
         Button classiqueButton = findViewById(R.id.classiqueButton);
         classiqueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
-                intent.putExtra("questions",setQuestion("standard",15, this.level));
+                intent.putExtra("timeMediaPlayer",setLevelSec(level));
+                intent.putExtra(LEVEL, level);
+                intent.putExtra("questions",setQuestion("standard",15));
                 startActivity(intent);
             }
         });
@@ -37,7 +42,9 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
-                intent.putExtra("questions",setQuestion("manga",10, level));
+                intent.putExtra("timeMediaPlayer",setLevelSec(level));
+                intent.putExtra(LEVEL, level);
+                intent.putExtra("questions",setQuestion("manga",10));
                 startActivity(intent);
             }
         });
@@ -47,14 +54,28 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
-                intent.putExtra("questions",setQuestion("disco",10, level));
+                intent.putExtra("timeMediaPlayer",setLevelSec(level));
+                intent.putExtra(LEVEL, level);
+                intent.putExtra("questions",setQuestion("disco",10));
                 startActivity(intent);
             }
         });
-        
     }
 
     public ArrayList<Question> setQuestion(String type, int number){
         return factoryQuestion.setQuestion(type,number);
+    }
+
+    public int setLevelSec(String level){
+        switch(level) {
+            case "facile":
+                return 10000;
+            case "moyen":
+                return 5000;
+            case "difficile":
+                return 1000;
+            default:
+                return 10000;
+        }
     }
 }

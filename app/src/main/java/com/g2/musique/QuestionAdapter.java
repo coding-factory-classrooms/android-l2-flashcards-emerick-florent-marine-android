@@ -49,8 +49,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 answer += " - ";
         }
         holder.answer.setText(answer);
-       // holder.genre.setText(question.getGenre());
-        holder.level.setText(question.getLevel());
+        // holder.genre.setText(question.getGenre());
+        // holder.level.setText(question.getLevel());
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(question);
     }
