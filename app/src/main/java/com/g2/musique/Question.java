@@ -17,7 +17,10 @@ public class Question implements Parcelable {
         this.badAnswer = badAnswer;
     }
 
-    public get
+    public void getAllAnswer()
+    {
+        
+    }
 
     protected Question(Parcel in) {
         musiqueId = in.readInt();
