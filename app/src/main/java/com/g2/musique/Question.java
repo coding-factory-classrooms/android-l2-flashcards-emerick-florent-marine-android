@@ -12,11 +12,27 @@ public class Question implements Parcelable {
     private int musiqueId;
     private String rightAnswer;
     private String[] badAnswer;
+    private String genre;
 
-    public Question(int musiqueId, String rightAnswer, String[] badAnswer) {
+    public Question(int musiqueId, String rightAnswer, String[] badAnswer, String genre) {
         this.musiqueId = musiqueId;
         this.rightAnswer = rightAnswer;
         this.badAnswer = badAnswer;
+        this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "musiqueId=" + musiqueId +
+                ", rightAnswer='" + rightAnswer + '\'' +
+                ", badAnswer=" + Arrays.toString(badAnswer) +
+                ", genre='" + genre + '\'' +
+                '}';
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public int getMusiqueId() {

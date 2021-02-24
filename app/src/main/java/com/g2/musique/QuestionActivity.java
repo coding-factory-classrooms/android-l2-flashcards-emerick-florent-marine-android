@@ -48,7 +48,8 @@ public class QuestionActivity extends AppCompatActivity {
             radioGroup.addView(radioButton);
         }
 
-        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.the_week_end);
+
+        this.mediaPlayer = MediaPlayer.create(getApplicationContext(),currentQuestion.getMusiqueId());
 
         Button validateButton = findViewById(R.id.validatebutton);
         validateButton.setOnClickListener(new View.OnClickListener() {

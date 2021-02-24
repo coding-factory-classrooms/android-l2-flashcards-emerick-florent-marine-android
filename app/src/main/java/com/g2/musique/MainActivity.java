@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FactoryQuestion factoryQuestion = new FactoryQuestion();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<Question> setQuestion(){
-        ArrayList<Question> questionsList = new ArrayList<Question>();
-        questionsList.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"Bad Boy","test2","test3"}));
-        questionsList.add(new Question(R.raw.the_week_end,"question 2", new String[] {"question 2","question 2","question 2"}));
-        return questionsList;
+        Log.i("test", "setQuestion: " + factoryQuestion.setQuestion("manga",20));
+        return factoryQuestion.setQuestion("manga",20);
     }
 }
