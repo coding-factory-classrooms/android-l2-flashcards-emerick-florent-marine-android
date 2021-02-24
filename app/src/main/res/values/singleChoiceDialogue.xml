@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="single_choice">Faites un choix de difficulté</string>
+    <string-array name="choice_item">
+        <item>facile</item>
+        <item>moyen</item>
+        <item>difficile</item>
+    </string-array>
+</resources>
