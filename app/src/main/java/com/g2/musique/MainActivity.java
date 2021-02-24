@@ -15,13 +15,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      //  getActionBar().setTitle("Spotify blind test");
 
         Button startButton = findViewById(R.id.startMusicButton);
         startButton.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("questions",setQuestion());
+                startActivity(intent);
+            }
+        });
+
+        Button listOfQuestionsButton = findViewById(R.id.ListOfQuestionsButton);
+        listOfQuestionsButton.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
                 intent.putExtra("questions",setQuestion());
                 startActivity(intent);
             }
@@ -39,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Question> setQuestion(){
         ArrayList<Question> questionsList = new ArrayList<Question>();
-        questionsList.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"Bad Boy","test2","test3"}));
-        questionsList.add(new Question(R.raw.the_week_end,"question 2", new String[] {"question 2","question 2","question 2"}));
+        questionsList.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"Bad Boy","test2","test3"}, "ESAY"));
+        questionsList.add(new Question(R.raw.the_week_end,"question 2", new String[] {"question 2","question 2","question 2"}, "EASY"));
         return questionsList;
     }
 }
