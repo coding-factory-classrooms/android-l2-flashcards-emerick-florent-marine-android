@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -20,14 +22,14 @@ public class ChoiceActivity extends AppCompatActivity {
 
         Intent srcIntent = getIntent();
         this.level = srcIntent.getStringExtra("level");
-        View view = new View();
 
         Button classiqueButton = findViewById(R.id.classiqueButton);
         classiqueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
-                intent.putExtra("questions",setQuestion("standard",15, this.level));
+
+                intent.putExtra("questions",setQuestion("standard",15, level));
                 startActivity(intent);
             }
         });
@@ -54,7 +56,7 @@ public class ChoiceActivity extends AppCompatActivity {
         
     }
 
-    public ArrayList<Question> setQuestion(String type, int number){
-        return factoryQuestion.setQuestion(type,number);
+    public ArrayList<Question> setQuestion(String type, int number, String string){
+        return factoryQuestion.setQuestion(type,number, string);
     }
 }

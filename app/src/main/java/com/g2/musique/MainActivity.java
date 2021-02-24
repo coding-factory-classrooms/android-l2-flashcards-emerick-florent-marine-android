@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public ArrayList<Question> setQuestion(String type, int number){
-        return factoryQuestion.setQuestion(type,number);
+    public ArrayList<Question> setQuestion(String type, int number, String string){
+        return factoryQuestion.setQuestion(type, number, string);
 
     }
 

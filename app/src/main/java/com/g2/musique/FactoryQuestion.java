@@ -88,7 +88,7 @@ public class FactoryQuestion {
 
     public ArrayList<Question> setAllQuestion(){
         if (questionsMap.isEmpty()) {
-            createDataBase();
+            createDataBase(null);
         }
         ArrayList<Question> questionsReturn = new ArrayList<Question>(questionsMap.get(STANDARD));
         questionsReturn.addAll(questionsMap.get(MANGA));
