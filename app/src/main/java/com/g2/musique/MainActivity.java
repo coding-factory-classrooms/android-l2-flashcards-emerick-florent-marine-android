@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
-                intent.putExtra("questions",setQuestion());
+                Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
                 startActivity(intent);
             }
         });
@@ -41,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<Question> setQuestion(){
-        Log.i("test", "setQuestion: " + factoryQuestion.setQuestion("manga",20));
-        return factoryQuestion.setQuestion("manga",20);
+    public ArrayList<Question> setQuestion(String type, int number){
+        return factoryQuestion.setQuestion(type,number);
     }
 }

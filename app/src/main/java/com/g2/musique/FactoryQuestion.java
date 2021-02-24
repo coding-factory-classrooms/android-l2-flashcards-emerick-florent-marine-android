@@ -18,7 +18,7 @@ public class FactoryQuestion {
 
         ArrayList<Question> questionsListBasic = new ArrayList<Question>();
 
-        // Standart 14
+        // Standart 15
         questionsListBasic.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"ColdPlay","Imagine Dragon","Linkin Park"}, STANDARD));
         questionsListBasic.add(new Question(R.raw.daft_punk,"Daft Punk", new String[] {"David Guetta","Avicii","Marshmello"}, STANDARD));
         questionsListBasic.add(new Question(R.raw.ed_sheeran,"Ed Sheeran", new String[] {"Charlie Puth","Sam Smith","Shawn Mendes"}, STANDARD));
@@ -79,7 +79,8 @@ public class FactoryQuestion {
 
         if (numberOfQuestion < questionsReturn.size())
         {
-            for (int i=0; i <= numberOfQuestion; ++i){
+            int test = questionsReturn.size() - numberOfQuestion;
+            for (int i=0; i < test; ++i){
                 questionsReturn.remove(questionsReturn.size() -1);
             }
         }
