@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.print.PrinterId;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -36,6 +31,7 @@ public class QuestionActivity extends AppCompatActivity {
     private int score;
     private int timeMediaPlayer;
     private String level;
+    private boolean choice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +58,14 @@ public class QuestionActivity extends AppCompatActivity {
         setTitle("Spotify Blind Test  Question " + String.valueOf(numberQuestion + 1) + "/" + questionsList.size());
         this.mediaPlayer = MediaPlayer.create(getApplicationContext(), currentQuestion.getMusiqueId());
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
-        Button validateButton = findViewById(R.id.validatebutton);
+        Button validateButton = findViewById(R.id.validateButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RadioGroup radioGroup;
                 RadioButton radioButtonSelected;
 
-                Button validateButton = findViewById(R.id.validatebutton);
+                Button validateButton = findViewById(R.id.validateButton);
                 radioGroup = findViewById(R.id.radioGroup1);
                 radioButtonSelected = findViewById(radioGroup.getCheckedRadioButtonId());
                 TextView responseTextView = findViewById(R.id.responseTextView);
@@ -79,18 +75,30 @@ public class QuestionActivity extends AppCompatActivity {
                             "Choisir une réponse !",
                             Toast.LENGTH_SHORT).show();
                     return;
+                }else{
+                    if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
+                        responseTextView.setText("Vrai");
+                        responseTextView.setTextColor(Color.GREEN);
+                        score++;
+                        view.setEnabled(false);
+                        choice = true;
+                    } else {
+                        responseTextView.setText("Faux la bonne réponse était " + currentQuestion.getRightAnswer());
+                        responseTextView.setTextColor(Color.RED);
+                        view.setEnabled(false);
+                        choice = true;
+                    }
                 }
-                if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
-                    responseTextView.setText("Vrai");
-                    responseTextView.setTextColor(Color.GREEN);
-                    validateButton.setText("Question suivante");
-                    score++;
-                } else {
-                    responseTextView.setText("Faux la bonne réponse était " + currentQuestion.getRightAnswer());
-                    responseTextView.setTextColor(Color.RED);
-                    validateButton.setText("Question suivante");
+            }
+        });
+
+        Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(choice){
+                    logicEndQuizz();   
                 }
-                logicEndQuizz();
             }
         });
     }
@@ -116,7 +124,6 @@ public class QuestionActivity extends AppCompatActivity {
             }, timeMediaPlayer);
             button.setText(getString(R.string.pause_music_btn));
         }
-
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -124,45 +131,30 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
     }
-
     public void logicEndQuizz() {
         numberQuestion++;
         if (numberQuestion >= questionsList.size()) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-                    intent.putExtra("questions", questionsList);
-                    intent.putExtra(EXTRA_SCORE_QUESTION, score);
-                    intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-                    intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-                    intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-                    intent.putExtra(LEVEL, level);
-                    startActivity(intent);
-                    mediaPlayer.stop();
-                    finish();
-                    startActivity(intent);
-                }
-            }, 2000);
+            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+            intent.putExtra("questions", questionsList);
+            intent.putExtra(EXTRA_SCORE_QUESTION, score);
+            intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+            intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+            intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+            intent.putExtra(LEVEL, level);
+            startActivity(intent);
+            startActivity(intent);
         }
-    else
-    {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
-                intent.putExtra("questions", questionsList);
-                intent.putExtra(EXTRA_SCORE_QUESTION, score);
-                intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
-                intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
-                intent.putExtra(LEVEL, level);
-                mediaPlayer.stop();
-                finish();
-                startActivity(intent);
-            }
-        }, 2000);
+        else
+        {
+            Intent intent = new Intent(QuestionActivity.this, QuestionActivity.class);
+            intent.putExtra("questions", questionsList);
+            intent.putExtra(EXTRA_SCORE_QUESTION, score);
+            intent.putExtra(EXTRA_NUMBER_QUESTION, numberQuestion);
+            intent.putExtra(TIME_MEDIA_PLAYER, timeMediaPlayer);
+            intent.putExtra(LEVEL, level);
+            startActivity(intent);
+        }
+        mediaPlayer.stop();
+        finish();
     }
-}
 }
