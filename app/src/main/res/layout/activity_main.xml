@@ -20,11 +20,12 @@
         android:id="@+id/startMusicButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="124dp"
         android:text="Démarrer"
         android:textColor="#4CC651"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -32,11 +33,25 @@
         android:id="@+id/aboutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:text="A propos"
         android:textColor="#4CC651"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/startMusicButton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/startMusicButton"
+        app:layout_constraintTop_toBottomOf="@+id/ListOfQuestionsButton" />
+
+    <Button
+        android:id="@+id/ListOfQuestionsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Liste des questions"
+        android:textColor="#4CC651"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/startMusicButton"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/startMusicButton"
         app:layout_constraintTop_toBottomOf="@+id/startMusicButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

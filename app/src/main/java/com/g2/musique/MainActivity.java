@@ -19,13 +19,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      //  getActionBar().setTitle("Spotify blind test");
 
         Button startButton = findViewById(R.id.startMusicButton);
         startButton.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button listOfQuestionsButton = findViewById(R.id.ListOfQuestionsButton);
+        listOfQuestionsButton.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
+                intent.putExtra("questions",setQuestion());
                 startActivity(intent);
             }
         });
@@ -42,5 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Question> setQuestion(String type, int number){
         return factoryQuestion.setQuestion(type,number);
+
     }
 }

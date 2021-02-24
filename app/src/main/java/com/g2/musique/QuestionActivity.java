@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -48,7 +49,7 @@ public class QuestionActivity extends AppCompatActivity {
             radioGroup.addView(radioButton);
         }
 
-
+        setTitle("Spotify Blind Test  Question "+String.valueOf(numberQuestion+1)+"/"+questionsList.size());
         this.mediaPlayer = MediaPlayer.create(getApplicationContext(),currentQuestion.getMusiqueId());
 
         Button validateButton = findViewById(R.id.validatebutton);
@@ -69,14 +70,17 @@ public class QuestionActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
                     responseTextView.setText("Vrai");
+
                     responseTextView.setTextColor(Color.GREEN);
                     validateButton.setText("Question suivante");
                     score++;
 
                 } else {
-                    responseTextView.setText("Faux la bonne réponse était The Weeknd");
+
+                    responseTextView.setText("Faux la bonne réponse était "+ currentQuestion.getRightAnswer());
                     responseTextView.setTextColor(Color.RED);
                     validateButton.setText("Question suivante");
                 }
