@@ -16,6 +16,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * the entry point of the application
+ * @class MainActivity
+ */
 public class MainActivity extends AppCompatActivity
         implements SingleChoiceDialog.SingleChoiceListener {
 
@@ -24,9 +28,11 @@ public class MainActivity extends AppCompatActivity
     private String level = "canceled";
     private String function = "test";
 
+
     /**
      *
-      * Start of the app
+     * Start of the app
+     * @param savedInstanceState bundle instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity
      *
      * @param type is equal to the type of music choose
      * @param number is equal of the numbers of desired question
-     * @return Arraylist of questions and response
+     * @return ArrayList of questions and response
      */
     public ArrayList<Question> setQuestion(String type, int number){
         return factoryQuestion.setQuestion(type,number);

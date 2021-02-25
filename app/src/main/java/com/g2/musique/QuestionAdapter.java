@@ -17,6 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * use for items in the list in recycler
+ * @class QuestionAdapter
+ */
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder>
                                     implements View.OnClickListener {
 
@@ -24,12 +28,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     private String level;
     private int timeMediaPlayer;
 
+
+    /**
+     * @param questions list of questions
+     * @param level level of difficulty
+     * @param timeMediaPlayer duration in function of difficulty
+     */
     public QuestionAdapter(ArrayList<Question> questions, String level, int timeMediaPlayer) {
         this.questionList = questions;
         this.level = level;
         this.timeMediaPlayer = timeMediaPlayer;
     }
 
+    /**
+     * @param parent view of parent
+     * @param viewType type of view
+     * @return a viewHolder of the view
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +53,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    /**
+     * @param holder view
+     * @param position position of the item
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Question question = (Question) questionList.get(position);
@@ -59,11 +78,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.itemView.setTag(question);
     }
 
+    /**
+     * @return size of the list
+     */
     @Override
     public int getItemCount() {
         return questionList.size();
     }
 
+    /**
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -82,12 +107,18 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         }
     }
 
+    /**
+     * @class View Holder for recycler
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView image;
         final TextView answer;
         final TextView level;
         final TextView genre;
 
+        /**
+         * @param itemView item of the viewItem
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

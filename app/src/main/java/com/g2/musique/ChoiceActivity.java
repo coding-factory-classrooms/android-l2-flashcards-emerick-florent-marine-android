@@ -10,14 +10,20 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+/**
+ * choice the type of the theme
+ * @class ChoiceActivity
+ */
 public class ChoiceActivity extends AppCompatActivity {
     private FactoryQuestion factoryQuestion = new FactoryQuestion();
     public static final String LEVEL = "level";
     private String level;
 
+
     /**
      *
      * generate the activity_choice
+     * @param savedInstanceState bundle instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

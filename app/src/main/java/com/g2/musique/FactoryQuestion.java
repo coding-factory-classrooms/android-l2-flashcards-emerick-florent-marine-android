@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contains all the questions
+ * @class FactoryQuestion
+ */
 public class FactoryQuestion {
 
     public static final String STANDARD = "standard";
@@ -75,7 +79,7 @@ public class FactoryQuestion {
      *
      * @param type is equal to the type of music choose
      * @param numberOfQuestion is equal of the numbers of desired question
-     * @return Arraylist of questions and response
+     * @return ArrayList of questions and response
      */
     public ArrayList<Question> setQuestion(String type, int numberOfQuestion){
         if (questionsMap.isEmpty()){
@@ -98,7 +102,7 @@ public class FactoryQuestion {
 
     /**
      *
-     * @return Arraylist of all the questions
+     * @return ArrayList of all the questions
      */
     public ArrayList<Question> setAllQuestion(){
         if (questionsMap.isEmpty()) {

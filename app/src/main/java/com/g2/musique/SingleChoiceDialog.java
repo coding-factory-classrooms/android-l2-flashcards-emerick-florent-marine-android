@@ -10,9 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * @class SingleChoiceDialog for dialog box
+ */
 public class SingleChoiceDialog extends DialogFragment {
     int position = 0;
 
+    /**
+     * @interface for use button
+     */
     public interface SingleChoiceListener {
         void onPositiveButtonClicked(String[] list, int position);
         void onNegativeButtonClicked();

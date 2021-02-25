@@ -10,11 +10,19 @@ import android.widget.Adapter;
 
 import java.util.ArrayList;
 
+/**
+ * use for the list Activity for the recycler
+ * @class QuestionListActivity
+ */
 public class QuestionListActivity extends AppCompatActivity {
     private static final String TIME_MEDIA_PLAYER = "timeMediaPlayer";
     private QuestionAdapter adapter;
     private int timeMediaPlayer;
 
+    /**
+     * generate the list of the items in the recycler
+     * @param savedInstanceState bundle instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
