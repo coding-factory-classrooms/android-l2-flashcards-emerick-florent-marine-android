@@ -128,17 +128,7 @@ public class FactoryQuestion {
                 }
             }
         });*/
-       Threadtest logine = new Threadtest();
-        logine.start();
-        while(logine.isAlive()){
-            try {
-                logine.sleep(10); // fonctionne aussi bien sans cette tempo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-           questionsListBasic = logine.getQuestionsListBasic();
-        }
-        Log.i("final", String.valueOf(questionsListBasic));
+
     }
 
 
@@ -150,11 +140,18 @@ public class FactoryQuestion {
      * @return Arraylist of questions and response
      */
     public ArrayList<Question> setQuestion(String type, int numberOfQuestion) throws IOException {
-        if (questionsMap.isEmpty()){
-            loadRatesFromApi("standard");
-            createDataBase(type);
+        Log.i("finale2", "dans Thread");
+        Threadtest logine = new Threadtest();
+        logine.setTheme(type);
+        logine.start();
+        while(logine.isAlive()){
+            try {
+                logine.sleep(10); // fonctionne aussi bien sans cette tempo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            questionsListBasic = logine.getQuestionsListBasic();
         }
-        Log.i("arg","start question" + questionsListBasic);
 
         Collections.shuffle(questionsListBasic);
 
@@ -165,7 +162,7 @@ public class FactoryQuestion {
                 questionsListBasic.remove(questionsListBasic.size() -1);
             }
         }
-
+        Log.i("finale2", String.valueOf(questionsListBasic));
         return questionsListBasic;
     }
 
@@ -175,75 +172,23 @@ public class FactoryQuestion {
 
     /**
      *
-     * @param level is the choose of the difficulty by the user
      * @return Arraylist of all the questions
      */
-    public ArrayList<Question> setAllQuestion(String level) throws IOException {
-        if (questionsMap.isEmpty()) {
-            createDataBase("type");
-        }
-
-        ArrayList<Question> questionsReturn = new ArrayList<Question>(questionsMap.get(STANDARD));
-        questionsReturn.addAll(questionsMap.get(MANGA));
-        questionsReturn.addAll(questionsMap.get(DISCO));
-        return questionsReturn;
-    }
-}
-
-
-
-class Threadtest extends Thread{
-    public int responseCode = 0;
-    public String responseString = "";
-    private OkHttpClient client = new OkHttpClient();
-    private String url = "http://gryt.tech:8080/spotifyblindtest/";
-    private ArrayList<Question> questionsListBasic = new ArrayList<Question>();
-
-    @Override
-    public void run() {
-        try {
-            // Build the request
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            Response responses = null;
-
-            // Reset the response code
-            responseCode = 0;
-
-            // Make the request
-            responses = client.newCall(request).execute();
-
-            if ((responseCode = responses.code()) == 200) {
-                String body = responses.body().string();
-                try {
-                    JSONArray jsonArray = new JSONArray(body);
-
-                    for (int i=0; i < jsonArray.length(); ++i)
-                    {
-                        ArrayList<String> stringBadAnswer = new ArrayList<String>();
-                        JSONObject data =  jsonArray.getJSONObject(i);
-                        JSONArray objectBadAnswer =  data.getJSONArray("bad_Answer");
-                        for (int o = 0 ; o < objectBadAnswer.length(); ++o)
-                        {
-                            stringBadAnswer.add(objectBadAnswer.getString(o));
-                        }
-                        Log.i("arg","After Add" + stringBadAnswer);
-                        questionsListBasic.add(new Question(data.getString("filename"),data.getString("right_Answer"), stringBadAnswer));
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    public ArrayList<Question> setAllQuestion() throws IOException {
+        Threadtest logine = new Threadtest();
+        logine.start();
+        while(logine.isAlive()){
+            try {
+                logine.sleep(10); // fonctionne aussi bien sans cette tempo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            responseString = e.toString();
+            questionsListBasic = logine.getQuestionsListBasic();
         }
-    }
-
-    public ArrayList<Question> getQuestionsListBasic() {
+        Log.i("questionsList", String.valueOf(questionsListBasic));
         return questionsListBasic;
     }
 }
+
+
+

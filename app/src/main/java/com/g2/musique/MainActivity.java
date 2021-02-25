@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
                 try {
-                    intent.putExtra("questions", factoryQuestion.setAllQuestion("level"));
+                    intent.putExtra("questions", factoryQuestion.setAllQuestion());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity
     public void onPositiveButtonClicked(String[] list, int position) {
         this.level = list[position];
         if (!this.level.equals("canceled")){
+            Log.i("finale2", "valider difficulté");
             Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
             intent.putExtra("level", this.level);
             startActivity(intent);

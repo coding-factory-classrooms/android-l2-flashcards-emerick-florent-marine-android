@@ -42,10 +42,12 @@ public class ChoiceActivity extends AppCompatActivity {
                 intent.putExtra("timeMediaPlayer",setLevelSec(level));
                 intent.putExtra(LEVEL, level);
                 try {
+                    Log.i("finale2", "avant remplissage");
                     intent.putExtra("questions",setQuestion("standard",15));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Log.i("finale2", "remplis");
                 startActivity(intent);
             }
         });
