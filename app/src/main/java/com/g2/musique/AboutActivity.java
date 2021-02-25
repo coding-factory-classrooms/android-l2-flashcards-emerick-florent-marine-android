@@ -7,11 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * view About
+ * @class AboutActivity
+ */
 public class AboutActivity extends AppCompatActivity {
 
     /**
      *
-     * @param savedInstanceState
+     * @param savedInstanceState bundle instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -18,6 +18,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * the flashcard
+ * @class QuestionActivity
+ */
 public class QuestionActivity extends AppCompatActivity {
 
     public static final String EXTRA_NUMBER_QUESTION = "numberQuestion";

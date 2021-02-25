@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * class contains the flashcards
+ * @class question
+ */
 public class Question implements Parcelable {
 
     private String musiqueId;
@@ -58,12 +62,31 @@ public class Question implements Parcelable {
         return badAnswer;
     }
 
+    /**
+     *
+     * @return ArrayList of all answers
+     */
+    public ArrayList<String> getAllAnswer()
+    {
+        ArrayList<String> allAnswer = new ArrayList<String>(Arrays.asList(this.badAnswer));
+        allAnswer.add(this.rightAnswer);
+        Collections.shuffle(allAnswer);
+        return allAnswer;
+    }
+
+    /**
+     * @param in is the parcelable which contains variables
+     */
     protected Question(Parcel in) {
         musiqueId = in.readString();
         rightAnswer = in.readString();
         badAnswer = in.createStringArrayList();
     }
 
+    /**
+     * @param dest is the variable parcelable
+     * @param flags flag
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(musiqueId);
@@ -71,17 +94,29 @@ public class Question implements Parcelable {
         dest.writeStringList(badAnswer);
     }
 
+    /**
+     * describe content
+     * @return 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
+        /**
+         * @param in is the parcelable question
+         * @return new Question parcelable with the position
+         */
         @Override
         public Question createFromParcel(Parcel in) {
             return new Question(in);
         }
 
+        /**
+         * @param size is the position
+         * @return new Question with the position
+         */
         @Override
         public Question[] newArray(int size) {
             return new Question[size];

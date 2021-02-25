@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * use for display statistiques
+ * @class ResultActivity
+ */
 public class ResultActivity extends AppCompatActivity {
 
     public static final String EXTRA_SCORE_QUESTION = "numberScore";
@@ -18,9 +22,10 @@ public class ResultActivity extends AppCompatActivity {
     private ArrayList<Question> questionsList;
     private String level;
 
+
     /**
-     *
      * Generate the result and statistics of the blind test
+     * @param savedInstanceState bundle instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

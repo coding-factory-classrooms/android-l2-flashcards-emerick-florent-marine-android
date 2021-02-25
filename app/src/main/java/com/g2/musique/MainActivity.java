@@ -18,15 +18,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * the entry point of the application
+ * @class MainActivity
+ */
 public class MainActivity extends AppCompatActivity
         implements SingleChoiceDialog.SingleChoiceListener {
 
     private FactoryQuestion factoryQuestion = new FactoryQuestion();
+    private ChoiceActivity choiceActivity = new ChoiceActivity();
     private String level = "canceled";
+    private String function = "test";
+
 
     /**
      *
-      * Start of the app
+     * Start of the app
+     * @param savedInstanceState bundle instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity
              */
             @Override
             public void onClick(View v){
+                function = "listQuestion";
                 DialogFragment singleChoiceDialog = new SingleChoiceDialog();
                 singleChoiceDialog.setCancelable(false);
                 singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
@@ -55,13 +64,10 @@ public class MainActivity extends AppCompatActivity
              */
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
-                try {
-                    intent.putExtra("questions", factoryQuestion.setAllQuestion());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                startActivity(intent);
+                function = "listItem";
+                DialogFragment singleChoiceDialog = new SingleChoiceDialog();
+                singleChoiceDialog.setCancelable(false);
+                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
             }
         });
 
@@ -83,7 +89,7 @@ public class MainActivity extends AppCompatActivity
      *
      * @param type is equal to the type of music choose
      * @param number is equal of the numbers of desired question
-     * @return Arraylist of questions and response
+     * @return ArrayList of questions and response
      */
     public ArrayList<Question> setQuestion(String type, int number) throws IOException {
         return factoryQuestion.setQuestion(type,number);
@@ -97,11 +103,24 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
         this.level = list[position];
-        if (!this.level.equals("canceled")){
-            Log.i("finale2", "valider difficulté");
-            Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
-            intent.putExtra("level", this.level);
-            startActivity(intent);
+        Log.i("main", this.function);
+        if (this.function.equals("listQuestion")) {
+            if (!this.level.equals("canceled")) {
+                Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                intent.putExtra("level", this.level);
+                startActivity(intent);
+            }
+        }
+        else if (this.function.equals("listItem"))
+        {
+            Log.i("main", "la");
+            if (!this.level.equals("canceled")) {
+                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
+                intent.putExtra("questions", factoryQuestion.setAllQuestion());
+                intent.putExtra("timeMediaPlayer", choiceActivity.setLevelSec(level));
+                intent.putExtra("level", this.level);
+                startActivity(intent);
+            }
         }
     }
 

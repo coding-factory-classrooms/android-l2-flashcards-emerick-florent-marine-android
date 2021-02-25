@@ -17,15 +17,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * use for items in the list in recycler
+ * @class QuestionAdapter
+ */
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder>
                                     implements View.OnClickListener {
 
     private ArrayList<Question> questionList;
+    private String level;
+    private int timeMediaPlayer;
 
-    public QuestionAdapter(ArrayList<Question> questions) {
+
+    /**
+     * @param questions list of questions
+     * @param level level of difficulty
+     * @param timeMediaPlayer duration in function of difficulty
+     */
+    public QuestionAdapter(ArrayList<Question> questions, String level, int timeMediaPlayer) {
         this.questionList = questions;
+        this.level = level;
+        this.timeMediaPlayer = timeMediaPlayer;
     }
 
+    /**
+     * @param parent view of parent
+     * @param viewType type of view
+     * @return a viewHolder of the view
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,6 +53,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    /**
+     * @param holder view
+     * @param position position of the item
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Question question = (Question) questionList.get(position);
@@ -49,17 +72,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 answer += " - ";
         }
         holder.answer.setText(answer);
-        // holder.genre.setText(question.getGenre());
-        // holder.level.setText(question.getLevel());
+        holder.genre.setText(question.getGenre());
+        holder.level.setText(level);
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(question);
     }
 
+    /**
+     * @return size of the list
+     */
     @Override
     public int getItemCount() {
         return questionList.size();
     }
 
+    /**
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -72,22 +101,31 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 questions.add(question);
                 intent.putExtra("questions", questions);
                 intent.putExtra("numberQuestion", 0);
+                intent.putExtra("timeMediaPlayer", timeMediaPlayer);
                 context.startActivity(intent);
                 break;
         }
     }
 
+    /**
+     * @class View Holder for recycler
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView image;
         final TextView answer;
         final TextView level;
+        final TextView genre;
 
+        /**
+         * @param itemView item of the viewItem
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             image = itemView.findViewById(R.id.imageView);
             answer = itemView.findViewById(R.id.answerTextView);
             level = itemView.findViewById(R.id.levelTextView);
+            genre = itemView.findViewById(R.id.genreTextView);
         }
     }
 
