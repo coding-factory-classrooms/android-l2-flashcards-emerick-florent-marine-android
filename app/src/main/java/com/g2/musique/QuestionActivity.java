@@ -101,6 +101,9 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         Button nextButton = findViewById(R.id.nextButton);
+        if (numberQuestion == questionsList.size() -1) {
+            nextButton.setText("Afficher le score");
+        }
         nextButton.setOnClickListener(new View.OnClickListener() {
             /**
              *
@@ -160,6 +163,7 @@ public class QuestionActivity extends AppCompatActivity {
      */
     public void logicEndQuizz() {
         numberQuestion++;
+
         if (numberQuestion >= questionsList.size()) {
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
             intent.putExtra("questions", questionsList);
