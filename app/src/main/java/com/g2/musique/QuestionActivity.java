@@ -62,7 +62,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         setTitle("Spotify Blind Test  Question " + String.valueOf(numberQuestion + 1) + "/" + questionsList.size());
 
-        int drawableResourceId = getResources().getIdentifier(currentQuestion.getMusiqueId(), "raw", getPackageName());
+        int drawableResourceId = QuestionActivity.this.getResources().getIdentifier(currentQuestion.getMusiqueId(), "raw", QuestionActivity.this.getPackageName());
         this.mediaPlayer = MediaPlayer.create(getApplicationContext(), drawableResourceId);
 
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());

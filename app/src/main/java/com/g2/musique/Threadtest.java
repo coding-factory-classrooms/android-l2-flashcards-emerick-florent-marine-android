@@ -60,8 +60,7 @@ class Threadtest extends Thread{
                         {
                             stringBadAnswer.add(objectBadAnswer.getString(o));
                         }
-                        Log.i("arg","After Add" + stringBadAnswer);
-                        questionsListBasic.add(new Question(data.getString("filename"),data.getString("right_Answer"), stringBadAnswer));
+                        questionsListBasic.add(new Question(data.getString("filename").split("\\.")[0],data.getString("right_Answer"), stringBadAnswer));
 
                     }
 
