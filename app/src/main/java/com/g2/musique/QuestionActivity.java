@@ -36,7 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
     private int score;
     private int timeMediaPlayer;
     private String level;
-    private boolean choice;
+    private int choice = 0;
 
     /**
      *
@@ -70,58 +70,53 @@ public class QuestionActivity extends AppCompatActivity {
         this.mediaPlayer = MediaPlayer.create(getApplicationContext(), drawableResourceId);
 
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
-        Button validateButton = findViewById(R.id.validateButton);
-        validateButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             *
-             * Validate the choice of response
-             */
+
+        Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setText("Valider réponse");
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("testonclick", String.valueOf(choice));
                 RadioGroup radioGroup;
                 RadioButton radioButtonSelected;
 
-                Button validateButton = findViewById(R.id.validateButton);
+                Button nextButton = findViewById(R.id.nextButton);
                 radioGroup = findViewById(R.id.radioGroup1);
                 radioButtonSelected = findViewById(radioGroup.getCheckedRadioButtonId());
                 TextView responseTextView = findViewById(R.id.responseTextView);
 
-                if (radioButtonSelected == null) {
-                    Toast.makeText(QuestionActivity.this,
-                            "Choisir une réponse !",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
-                        responseTextView.setText("Vrai");
-                        responseTextView.setTextColor(Color.GREEN);
-                        score++;
-                        view.setEnabled(false);
-                        choice = true;
+                if (0 == choice)
+                {
+                    if (radioButtonSelected == null) {
+                        Toast.makeText(QuestionActivity.this,
+                                "Choisir une réponse !",
+                                Toast.LENGTH_SHORT).show();
+                        return;
                     } else {
-                        responseTextView.setText("Faux la bonne réponse était " + currentQuestion.getRightAnswer());
-                        responseTextView.setTextColor(Color.RED);
-                        view.setEnabled(false);
-                        choice = true;
+                        choice++;
+                        if (radioButtonSelected.getText().toString().equals(currentQuestion.getRightAnswer())) {
+                            responseTextView.setText("Vrai " + currentQuestion.getRightAnswer());
+                            responseTextView.setTextColor(Color.GREEN);
+                            score++;
+                          //  view.setEnabled(false);
+                           // choice = true;
+                        } else {
+                            responseTextView.setText("Faux la bonne réponse était " + currentQuestion.getRightAnswer());
+                            responseTextView.setTextColor(Color.RED);
+                           // view.setEnabled(false);
+                            //choice = true;
+
+                        }
+                        Log.i("testonclick", String.valueOf(choice));
+                        nextButton.setText("passer à la question suivante");
+                        if (numberQuestion == questionsList.size() - 1) {
+                            nextButton.setText("Afficher le score");
+                        }
                     }
                 }
-            }
-        });
-
-        Button nextButton = findViewById(R.id.nextButton);
-        if (numberQuestion == questionsList.size() -1) {
-            nextButton.setText("Afficher le score");
-        }
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             *
-             * Generate next page of Question
-             */
-            @Override
-            public void onClick(View view) {
-                if(choice){
+                else
                     logicEndQuizz();
-                }
+
             }
         });
     }

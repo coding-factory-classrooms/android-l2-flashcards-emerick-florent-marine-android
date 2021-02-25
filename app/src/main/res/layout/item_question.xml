@@ -51,17 +51,4 @@
         app:layout_constraintVertical_bias="0.0"
         tools:text="EASY" />
 
-    <TextView
-        android:id="@+id/genreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#49C14E"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/levelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/answerTextView"
-        tools:text="genre" />
 </androidx.constraintlayout.widget.ConstraintLayout>

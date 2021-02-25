@@ -72,7 +72,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 answer += " - ";
         }
         holder.answer.setText(answer);
-        holder.genre.setText(question.getGenre());
         holder.level.setText(level);
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(question);
@@ -114,7 +113,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         final ImageView image;
         final TextView answer;
         final TextView level;
-        final TextView genre;
 
         /**
          * @param itemView item of the viewItem
@@ -125,7 +123,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             image = itemView.findViewById(R.id.imageView);
             answer = itemView.findViewById(R.id.answerTextView);
             level = itemView.findViewById(R.id.levelTextView);
-            genre = itemView.findViewById(R.id.genreTextView);
         }
     }
 

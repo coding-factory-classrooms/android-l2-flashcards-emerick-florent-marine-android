@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
      * @param position of the choices
      */
     @Override
-    public void onPositiveButtonClicked(String[] list, int position) {
+    public void onPositiveButtonClicked(String[] list, int position) throws IOException {
         this.level = list[position];
         Log.i("main", this.function);
         if (this.function.equals("listQuestion")) {

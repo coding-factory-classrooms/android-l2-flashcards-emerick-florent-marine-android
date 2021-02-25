@@ -58,21 +58,6 @@ public class Question implements Parcelable {
         return rightAnswer;
     }
 
-    public ArrayList<String> getBadAnswer() {
-        return badAnswer;
-    }
-
-    /**
-     *
-     * @return ArrayList of all answers
-     */
-    public ArrayList<String> getAllAnswer()
-    {
-        ArrayList<String> allAnswer = new ArrayList<String>(Arrays.asList(this.badAnswer));
-        allAnswer.add(this.rightAnswer);
-        Collections.shuffle(allAnswer);
-        return allAnswer;
-    }
 
     /**
      * @param in is the parcelable which contains variables

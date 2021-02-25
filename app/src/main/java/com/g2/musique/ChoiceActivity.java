@@ -55,6 +55,7 @@ public class ChoiceActivity extends AppCompatActivity {
                 }
                 Log.i("finale2", "remplis");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -75,6 +76,7 @@ public class ChoiceActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -95,8 +97,10 @@ public class ChoiceActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivity(intent);
+                finish();
             }
         });
+
     }
 
     /**

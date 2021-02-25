@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.IOException;
+
 /**
  * @class SingleChoiceDialog for dialog box
  */
@@ -20,7 +22,7 @@ public class SingleChoiceDialog extends DialogFragment {
      * @interface for use button
      */
     public interface SingleChoiceListener {
-        void onPositiveButtonClicked(String[] list, int position);
+        void onPositiveButtonClicked(String[] list, int position) throws IOException;
         void onNegativeButtonClicked();
     }
 
@@ -60,7 +62,11 @@ public class SingleChoiceDialog extends DialogFragment {
                 .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.onPositiveButtonClicked(list, position);
+                        try {
+                            listener.onPositiveButtonClicked(list, position);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
