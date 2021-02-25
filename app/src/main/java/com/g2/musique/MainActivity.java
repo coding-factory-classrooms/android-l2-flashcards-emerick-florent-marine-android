@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity
         implements SingleChoiceDialog.SingleChoiceListener {
 
     private FactoryQuestion factoryQuestion = new FactoryQuestion();
+    private ChoiceActivity choiceActivity = new ChoiceActivity();
     private String level = "canceled";
+    private String function = "test";
 
     /**
      *
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity
              */
             @Override
             public void onClick(View v){
+                function = "listQuestion";
                 DialogFragment singleChoiceDialog = new SingleChoiceDialog();
                 singleChoiceDialog.setCancelable(false);
                 singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
@@ -53,9 +56,10 @@ public class MainActivity extends AppCompatActivity
              */
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
-                intent.putExtra("questions", factoryQuestion.setAllQuestion("level"));
-                startActivity(intent);
+                function = "listItem";
+                DialogFragment singleChoiceDialog = new SingleChoiceDialog();
+                singleChoiceDialog.setCancelable(false);
+                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
             }
         });
 
@@ -91,10 +95,24 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
         this.level = list[position];
-        if (!this.level.equals("canceled")){
-            Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
-            intent.putExtra("level", this.level);
-            startActivity(intent);
+        Log.i("main", this.function);
+        if (this.function.equals("listQuestion")) {
+            if (!this.level.equals("canceled")) {
+                Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                intent.putExtra("level", this.level);
+                startActivity(intent);
+            }
+        }
+        else if (this.function.equals("listItem"))
+        {
+            Log.i("main", "la");
+            if (!this.level.equals("canceled")) {
+                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
+                intent.putExtra("questions", factoryQuestion.setAllQuestion());
+                intent.putExtra("timeMediaPlayer", choiceActivity.setLevelSec(level));
+                intent.putExtra("level", this.level);
+                startActivity(intent);
+            }
         }
     }
 

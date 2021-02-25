@@ -97,10 +97,9 @@ public class FactoryQuestion {
 
     /**
      *
-     * @param level is the choose of the difficulty by the user
      * @return Arraylist of all the questions
      */
-    public ArrayList<Question> setAllQuestion(String level){
+    public ArrayList<Question> setAllQuestion(){
         if (questionsMap.isEmpty()) {
             createDataBase();
         }
