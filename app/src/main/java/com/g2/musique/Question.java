@@ -9,69 +9,19 @@ import java.util.Collections;
 
 public class Question implements Parcelable {
 
-    private int musiqueId;
+    private String musiqueId;
     private String rightAnswer;
-    private String[] badAnswer;
-    private String genre;
+    private ArrayList<String> badAnswer;
 
     /**
-     *
-     * @param musiqueId is the idName
+     *  @param musiqueId is the idName
      * @param rightAnswer is the only right answer
      * @param badAnswer is an array of bad Answer
-     * @param genre is the genre of musics
      */
-    public Question(int musiqueId, String rightAnswer, String[] badAnswer, String genre) {
+    public Question(String musiqueId, String rightAnswer, ArrayList<String> badAnswer) {
         this.musiqueId = musiqueId;
         this.rightAnswer = rightAnswer;
         this.badAnswer = badAnswer;
-        this.genre = genre;
-    }
-
-    /**
-     *
-     * @return question to String
-     */
-    @Override
-    public String toString() {
-        return "Question{" +
-                "musiqueId=" + musiqueId +
-                ", rightAnswer='" + rightAnswer + '\'' +
-                ", badAnswer=" + Arrays.toString(badAnswer) +
-                ", genre='" + genre + '\'' +
-                '}';
-    }
-
-    /**
-     *
-     * @return genre
-     */
-    public String getGenre() {
-        return genre;
-    }
-
-    /**
-     *
-     * @return music id
-     */
-    public int getMusiqueId() {
-        return musiqueId;
-    }
-
-    /**
-     *
-     * @return right answer
-     */
-    public String getRightAnswer() {
-        return rightAnswer;
-    }
-
-    /**
-     *
-     * @return array of bad answers
-     */
-    public String[] getBadAnswer() {
-        return badAnswer;
     }
 
     /**
@@ -80,25 +30,45 @@ public class Question implements Parcelable {
      */
     public ArrayList<String> getAllAnswer()
     {
-        ArrayList<String> allAnswer = new ArrayList<String>(Arrays.asList(this.badAnswer));
+        ArrayList<String> allAnswer = new ArrayList<String>();
         allAnswer.add(this.rightAnswer);
+        allAnswer.addAll(this.badAnswer);
         Collections.shuffle(allAnswer);
         return allAnswer;
     }
 
+    @Override
+    public String toString() {
+        return "Question{" +
+                "musiqueId='" + musiqueId + '\'' +
+                ", rightAnswer='" + rightAnswer + '\'' +
+                ", badAnswer=" + badAnswer +
+                '}';
+    }
+
+    public String getMusiqueId() {
+        return musiqueId;
+    }
+
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public ArrayList<String> getBadAnswer() {
+        return badAnswer;
+    }
+
     protected Question(Parcel in) {
-        musiqueId = in.readInt();
+        musiqueId = in.readString();
         rightAnswer = in.readString();
-        badAnswer = in.createStringArray();
-        genre = in.readString();
+        badAnswer = in.createStringArrayList();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(musiqueId);
+        dest.writeString(musiqueId);
         dest.writeString(rightAnswer);
-        dest.writeStringArray(badAnswer);
-        dest.writeString(genre);
+        dest.writeStringList(badAnswer);
     }
 
     @Override

@@ -1,7 +1,13 @@
 package com.g2.musique;
 
+import android.content.res.AssetManager;
+import android.os.Handler;
 import android.util.Log;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,14 +27,16 @@ public class FactoryQuestion {
     public static final String MANGA = "manga";
     public static final String DISCO = "disco";
     private Map<String, ArrayList<Question>> questionsMap = new HashMap<>();
+    private ArrayList<Question> questionsListBasic = new ArrayList<Question>();
 
     /**
      * Create Database of questions for the app
      */
-    public void createDataBase(){
+    public void createDataBase(String theme){
 
-        ArrayList<Question> questionsListBasic = new ArrayList<Question>();
 
+
+        /*
         // Standart 15
         questionsListBasic.add(new Question(R.raw.the_week_end,"The Week End", new String[] {"ColdPlay","Imagine Dragon","Linkin Park"}, STANDARD));
         questionsListBasic.add(new Question(R.raw.daft_punk,"Daft Punk", new String[] {"David Guetta","Avicii","Marshmello"}, STANDARD));
@@ -78,7 +86,42 @@ public class FactoryQuestion {
         questionsListBasic.add(new Question(R.raw.disco_sabrina,"Sabrina", new String[] {"Lio","Julie Pietri","Jeanne Mas"}, DISCO));
 
         questionsMap.put(DISCO,questionsListBasic);
+        */
 
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://gryt.tech:8080/spotifyblindtest/?theme="+theme)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure( Call call, IOException e) {
+                Log.e("testApi","onFailure",e);
+            }
+
+            @Override
+            public void onResponse( Call call, Response response) throws IOException {
+                String body = response.body().string();
+                try {
+                    JSONArray jsonArray = new JSONArray(body);
+                    ArrayList<String> stringBadAnswer = new ArrayList<String>();
+                    for (int i=0; i < jsonArray.length(); ++i)
+                    {
+                        JSONObject data =  jsonArray.getJSONObject(i);
+                        JSONArray objectBadAnswer =  data.getJSONArray("bad_Answer");
+                        for (int o = 0 ; o < objectBadAnswer.length(); ++o)
+                        {
+                            stringBadAnswer.add(objectBadAnswer.getString(o));
+                        }
+                        Log.i("arg","After Add" + stringBadAnswer);
+                        questionsListBasic.add(new Question(data.getString("filename"),data.getString("right_Answer"), stringBadAnswer));
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -90,43 +133,34 @@ public class FactoryQuestion {
     public ArrayList<Question> setQuestion(String type, int numberOfQuestion){
         if (questionsMap.isEmpty()){
             loadRatesFromApi("standard");
-            createDataBase();
+            createDataBase(type);
         }
+        Log.i("arg","start question" + questionsListBasic);
 
-        ArrayList<Question> questionsReturn = new ArrayList<Question>(questionsMap.get(type));
-        Collections.shuffle(questionsReturn);
+        Collections.shuffle(questionsListBasic);
 
-        if (numberOfQuestion < questionsReturn.size())
+        if (numberOfQuestion < questionsListBasic.size())
         {
-            int test = questionsReturn.size() - numberOfQuestion;
+            int test = questionsListBasic.size() - numberOfQuestion;
             for (int i=0; i < test; ++i){
-                questionsReturn.remove(questionsReturn.size() -1);
+                questionsListBasic.remove(questionsListBasic.size() -1);
             }
         }
 
-        return questionsReturn;
+        if ( questionsListBasic.isEmpty())
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    // Actions to do after 10 seconds
+                }
+            }, 1000);
+        }
+        return questionsListBasic;
     }
 
     private void loadRatesFromApi(String theme) {
-        OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url("http://gryt.tech:8080/spotifyblindtest/")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure( Call call, IOException e) {
-                Log.e("testApi","onFailure",e);
-            }
-
-            @Override
-            public void onResponse( Call call, Response response) throws IOException {
-                String body = response.body().string();
-                Log.i("testApi",body);
-            }
-        });
-        Log.i("testApi","start");
     }
 
     /**
@@ -136,7 +170,7 @@ public class FactoryQuestion {
      */
     public ArrayList<Question> setAllQuestion(String level){
         if (questionsMap.isEmpty()) {
-            createDataBase();
+            createDataBase("type");
         }
 
         ArrayList<Question> questionsReturn = new ArrayList<Question>(questionsMap.get(STANDARD));

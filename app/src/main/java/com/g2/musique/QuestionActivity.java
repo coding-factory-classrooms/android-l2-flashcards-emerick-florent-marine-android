@@ -60,7 +60,8 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         setTitle("Spotify Blind Test  Question " + String.valueOf(numberQuestion + 1) + "/" + questionsList.size());
-        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), currentQuestion.getMusiqueId());
+        // this.mediaPlayer = MediaPlayer.create(getApplicationContext(), currentQuestion.getMusiqueId());
+        // int drawableResourceId = context.getResources().getIdentifier("nameOfDrawable", "raw");
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
         Button validateButton = findViewById(R.id.validateButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
