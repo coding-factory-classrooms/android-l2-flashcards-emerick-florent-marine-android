@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -55,7 +56,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
-                intent.putExtra("questions", factoryQuestion.setAllQuestion("level"));
+                try {
+                    intent.putExtra("questions", factoryQuestion.setAllQuestion("level"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity
      * @param number is equal of the numbers of desired question
      * @return Arraylist of questions and response
      */
-    public ArrayList<Question> setQuestion(String type, int number){
+    public ArrayList<Question> setQuestion(String type, int number) throws IOException {
         return factoryQuestion.setQuestion(type,number);
     }
 

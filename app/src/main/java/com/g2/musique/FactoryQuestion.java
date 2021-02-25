@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.util.Log;
 
 
+import androidx.collection.ArraySet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class FactoryQuestion {
@@ -28,12 +31,13 @@ public class FactoryQuestion {
     public static final String DISCO = "disco";
     private Map<String, ArrayList<Question>> questionsMap = new HashMap<>();
     private ArrayList<Question> questionsListBasic = new ArrayList<Question>();
+    private String theme;
 
     /**
      * Create Database of questions for the app
      */
-    public void createDataBase(String theme){
-
+    public void createDataBase(String theme) throws IOException {
+        this.theme = theme;
 
 
         /*
@@ -88,10 +92,12 @@ public class FactoryQuestion {
         questionsMap.put(DISCO,questionsListBasic);
         */
 
-        OkHttpClient client = new OkHttpClient();
+/*        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://gryt.tech:8080/spotifyblindtest/?theme="+theme)
                 .build();
+
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure( Call call, IOException e) {
@@ -121,8 +127,21 @@ public class FactoryQuestion {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+       Threadtest logine = new Threadtest();
+        logine.start();
+        while(logine.isAlive()){
+            try {
+                logine.sleep(10); // fonctionne aussi bien sans cette tempo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+           questionsListBasic = logine.getQuestionsListBasic();
+        }
+        Log.i("final", String.valueOf(questionsListBasic));
     }
+
+
 
     /**
      *
@@ -130,7 +149,7 @@ public class FactoryQuestion {
      * @param numberOfQuestion is equal of the numbers of desired question
      * @return Arraylist of questions and response
      */
-    public ArrayList<Question> setQuestion(String type, int numberOfQuestion){
+    public ArrayList<Question> setQuestion(String type, int numberOfQuestion) throws IOException {
         if (questionsMap.isEmpty()){
             loadRatesFromApi("standard");
             createDataBase(type);
@@ -147,15 +166,6 @@ public class FactoryQuestion {
             }
         }
 
-        if ( questionsListBasic.isEmpty())
-        {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    // Actions to do after 10 seconds
-                }
-            }, 1000);
-        }
         return questionsListBasic;
     }
 
@@ -168,7 +178,7 @@ public class FactoryQuestion {
      * @param level is the choose of the difficulty by the user
      * @return Arraylist of all the questions
      */
-    public ArrayList<Question> setAllQuestion(String level){
+    public ArrayList<Question> setAllQuestion(String level) throws IOException {
         if (questionsMap.isEmpty()) {
             createDataBase("type");
         }
@@ -177,5 +187,63 @@ public class FactoryQuestion {
         questionsReturn.addAll(questionsMap.get(MANGA));
         questionsReturn.addAll(questionsMap.get(DISCO));
         return questionsReturn;
+    }
+}
+
+
+
+class Threadtest extends Thread{
+    public int responseCode = 0;
+    public String responseString = "";
+    private OkHttpClient client = new OkHttpClient();
+    private String url = "http://gryt.tech:8080/spotifyblindtest/";
+    private ArrayList<Question> questionsListBasic = new ArrayList<Question>();
+
+    @Override
+    public void run() {
+        try {
+            // Build the request
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            Response responses = null;
+
+            // Reset the response code
+            responseCode = 0;
+
+            // Make the request
+            responses = client.newCall(request).execute();
+
+            if ((responseCode = responses.code()) == 200) {
+                String body = responses.body().string();
+                try {
+                    JSONArray jsonArray = new JSONArray(body);
+
+                    for (int i=0; i < jsonArray.length(); ++i)
+                    {
+                        ArrayList<String> stringBadAnswer = new ArrayList<String>();
+                        JSONObject data =  jsonArray.getJSONObject(i);
+                        JSONArray objectBadAnswer =  data.getJSONArray("bad_Answer");
+                        for (int o = 0 ; o < objectBadAnswer.length(); ++o)
+                        {
+                            stringBadAnswer.add(objectBadAnswer.getString(o));
+                        }
+                        Log.i("arg","After Add" + stringBadAnswer);
+                        questionsListBasic.add(new Question(data.getString("filename"),data.getString("right_Answer"), stringBadAnswer));
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (IOException e) {
+            responseString = e.toString();
+        }
+    }
+
+    public ArrayList<Question> getQuestionsListBasic() {
+        return questionsListBasic;
     }
 }

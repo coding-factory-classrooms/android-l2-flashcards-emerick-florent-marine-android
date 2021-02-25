@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChoiceActivity extends AppCompatActivity {
@@ -40,7 +41,11 @@ public class ChoiceActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
                 intent.putExtra("timeMediaPlayer",setLevelSec(level));
                 intent.putExtra(LEVEL, level);
-                intent.putExtra("questions",setQuestion("standard",15));
+                try {
+                    intent.putExtra("questions",setQuestion("standard",15));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -56,7 +61,11 @@ public class ChoiceActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
                 intent.putExtra("timeMediaPlayer",setLevelSec(level));
                 intent.putExtra(LEVEL, level);
-                intent.putExtra("questions",setQuestion("manga",10));
+                try {
+                    intent.putExtra("questions",setQuestion("manga",10));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -72,7 +81,11 @@ public class ChoiceActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChoiceActivity.this, QuestionActivity.class);
                 intent.putExtra("timeMediaPlayer",setLevelSec(level));
                 intent.putExtra(LEVEL, level);
-                intent.putExtra("questions",setQuestion("disco",10));
+                try {
+                    intent.putExtra("questions",setQuestion("disco",10));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -84,7 +97,7 @@ public class ChoiceActivity extends AppCompatActivity {
      * @param number is equal of the numbers of desired question
      * @return Arraylist of questions and response
      */
-    public ArrayList<Question> setQuestion(String type, int number){
+    public ArrayList<Question> setQuestion(String type, int number) throws IOException {
         return factoryQuestion.setQuestion(type,number);
     }
 
