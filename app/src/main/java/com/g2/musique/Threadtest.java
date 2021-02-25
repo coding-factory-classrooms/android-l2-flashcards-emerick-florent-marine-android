@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * thread for communicate with API
+ * @class Threadtest
+ */
 class Threadtest extends Thread{
     public int responseCode = 0;
     private String theme = "";
@@ -22,6 +26,9 @@ class Threadtest extends Thread{
     private String urlTheme = "http://gryt.tech:8080/spotifyblindtest/?theme=";
     private ArrayList<Question> questionsListBasic = new ArrayList<Question>();
 
+    /**
+     * recovered items in API
+     */
     @Override
     public void run() {
         try {
@@ -74,14 +81,23 @@ class Threadtest extends Thread{
         }
     }
 
+    /**
+     * @return ArrayList<Question> of the API
+     */
     public ArrayList<Question> getQuestionsListBasic() {
         return questionsListBasic;
     }
 
+    /**
+     * @return theme
+     */
     public String getTheme() {
         return theme;
     }
 
+    /**
+     * @param theme set the variable theme
+     */
     public void setTheme(String theme) {
         this.theme = theme;
     }
