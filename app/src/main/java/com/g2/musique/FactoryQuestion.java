@@ -50,6 +50,7 @@ public class FactoryQuestion {
         questionsListBasic.add(new Question(R.raw.manga_lisa,"Lisa", new String[] {"Jennie Kim","Rosé","G-Dragon"}, MANGA));
         questionsListBasic.add(new Question(R.raw.manga_masatoshiono,"Masatoshiono", new String[] {"Linked Horizon","Sound Horizon","Yoasobi"}, MANGA));
         questionsListBasic.add(new Question(R.raw.manga_tkfromlingtositesigure,"Ling Tosite Sigure", new String[] {"Bump Of Chicken","Mrs. Green Apple","Canary Club"}, MANGA));
+        questionsListBasic.add(new Question(R.raw.manga_seatbelts,"Seatbelts", new String[] {"Steve Conte","Hajime Mizoguchi","jillmax"}, MANGA));
 
         questionsMap.put(MANGA, questionsListBasic);
         questionsListBasic = new ArrayList<Question>();
