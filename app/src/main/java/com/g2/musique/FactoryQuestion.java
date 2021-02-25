@@ -2,7 +2,6 @@ package com.g2.musique;
 
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,15 +113,15 @@ public class FactoryQuestion {
         Request request = new Request.Builder()
                 .url("http://gryt.tech:8080/spotifyblindtest/")
                 .build();
-        Log.i("testApi", String.valueOf(request));
+
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            public void onFailure( Call call, IOException e) {
                 Log.e("testApi","onFailure",e);
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse( Call call, Response response) throws IOException {
                 String body = response.body().string();
                 Log.i("testApi",body);
             }
