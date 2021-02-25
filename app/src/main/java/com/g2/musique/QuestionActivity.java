@@ -2,6 +2,7 @@ package com.g2.musique;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -60,8 +61,10 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         setTitle("Spotify Blind Test  Question " + String.valueOf(numberQuestion + 1) + "/" + questionsList.size());
-        // this.mediaPlayer = MediaPlayer.create(getApplicationContext(), currentQuestion.getMusiqueId());
-        // int drawableResourceId = context.getResources().getIdentifier("nameOfDrawable", "raw");
+
+        int drawableResourceId = getResources().getIdentifier(currentQuestion.getMusiqueId(), "raw", getPackageName());
+        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), drawableResourceId);
+
         Log.i(TAG, "playSound: duration " + mediaPlayer.getDuration());
         Button validateButton = findViewById(R.id.validateButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
