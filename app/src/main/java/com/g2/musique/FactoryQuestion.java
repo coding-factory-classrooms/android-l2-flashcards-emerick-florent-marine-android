@@ -1,9 +1,20 @@
 package com.g2.musique;
 
+import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FactoryQuestion {
 
@@ -79,6 +90,7 @@ public class FactoryQuestion {
      */
     public ArrayList<Question> setQuestion(String type, int numberOfQuestion){
         if (questionsMap.isEmpty()){
+            loadRatesFromApi("standard");
             createDataBase();
         }
 
@@ -94,6 +106,28 @@ public class FactoryQuestion {
         }
 
         return questionsReturn;
+    }
+
+    private void loadRatesFromApi(String theme) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://gryt.tech:8080/spotifyblindtest/")
+                .build();
+        Log.i("testApi", String.valueOf(request));
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("testApi","onFailure",e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String body = response.body().string();
+                Log.i("testApi",body);
+            }
+        });
+        Log.i("testApi","start");
     }
 
     /**
