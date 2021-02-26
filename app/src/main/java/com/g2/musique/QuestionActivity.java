@@ -191,4 +191,10 @@ public class QuestionActivity extends AppCompatActivity {
         mediaPlayer.stop();
         finish();
     }
+
+    public void onPause() {
+
+        super.onPause();
+        mediaPlayer.stop();
+    }
 }
