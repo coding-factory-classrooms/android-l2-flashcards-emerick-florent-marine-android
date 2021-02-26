@@ -51,14 +51,12 @@ public class FactoryQuestion {
         Threadtest logine = new Threadtest();
         logine.setTheme(type);
         logine.start();
-        while(logine.isAlive()){
-            try {
-                logine.sleep(10); // fonctionne aussi bien sans cette tempo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            questionsListBasic = logine.getQuestionsListBasic();
+        try {
+            logine.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        questionsListBasic = logine.getQuestionsListBasic();
 
         Collections.shuffle(questionsListBasic);
 
